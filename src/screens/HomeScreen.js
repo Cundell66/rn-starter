@@ -3,22 +3,26 @@ import { Text, StyleSheet, View, Button, TouchableOpacity } from "react-native";
 
 const HomeScreen = ({ navigation }) => {
   return (
-  <View>
-    <Text style={styles.text}>Pauls Home Screen</Text>
-    <Button 
-      title="Components" 
-      onPress={() => navigation.navigate('Components')}
-    />
-    <TouchableOpacity style={styles.touchable}onPress={()=> navigation.navigate('List')}>
-      <Text style={styles.buttonText}>
-        List
-      </Text>
-    </TouchableOpacity>
-    <Button 
-      title="Image" 
-      onPress={() => navigation.navigate('Image')}
-    />
-  </View>
+    <View>
+      <Text style={styles.text}>Pauls Home Screen</Text>
+      <Button
+        title="Components"
+        onPress={() => navigation.navigate('Components')}
+      />
+      <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('List')}>
+        <Text style={styles.buttonText}>
+          List
+        </Text>
+      </TouchableOpacity>
+      <Button
+        title="Image"
+        onPress={() => navigation.navigate('Image')}
+      />
+      <Button
+        title="Counter"
+        onPress={() => navigation.navigate('Counter')}
+      />
+    </View>
   );
 };
 
