@@ -1,0 +1,15 @@
+import React, { useState } from "react";
+import {View, Text, StyleSheet, Button } from "react-native";
+
+const ButtonScreen = () => {
+    return (
+        <View>
+            <Text>Button Screen</Text>
+            <Button title="Button" />
+        </View>
+    )
+};
+
+const styles = StyleSheet.create({});
+
+export default ButtonScreen;
