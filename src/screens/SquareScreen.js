@@ -1,71 +1,59 @@
-import React, { useState } from "react";
+import React, { useReducer} from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 import ColorCounter from "../components/ColorCounter";
 
-const SquareScreen = () => {
+const INCREMENT = 15
 
-    const INCREMENT = 15
-    const [red, setRed] = useState(255);
-    const [green, setGreen] = useState(255);
-    const [blue, setBlue] = useState(255);
+const reducer = (state, action) => {
+    switch (action.type){
+        case 'change_red':
+            return state.red + action.payload > 255 || state.red + action.payload < 0 
+            ? state
+            : {...state, red: state.red + action.payload };
+        case 'change_green':
+            return state.green + action.payload > 255 || state.green + action.payload < 0 
+            ? state
+            : {...state, green: state.green + action.payload };
+        case 'change_blue':
+            return state.blue + action.payload > 255 || state.blue + action.payload < 0 
+            ? state
+            : {...state, blue: state.blue + action.payload };
+        default:
+            return state;
+    }
+};
+
+const SquareScreen = () => {
+    const [state, dispatch] = useReducer(reducer, {red: 255, green: 255, blue: 255});
+    const { red, green, blue } = state;
     const rgb = `rgb(${red}, ${green}, ${blue})`
     console.log(rgb)
-
-    const setColor = (color, change) => {
-        // if (color === 'Red') {
-        //     if (red + change > 255 || red + change < 0) {
-        //         return;
-        //     } else {
-        //         setRed(red + change)
-        //     }
-        // } else if (color === 'Green') {
-        //     if (green + change > 255 || green + change < 0) {
-        //         return;
-        //     } else {
-        //         setGreen(green + change)
-        //     }
-        // } else if (color === 'Blue') {
-        //     if (blue + change > 255 || blue + change < 0) {
-        //         return;
-        //     } else {
-        //         setBlue(blue + change)
-        //     }
-        // }
-        switch (color) {
-            case 'Red':
-                red + change > -1 && red + change < 256 ? setRed(red + change) : null;
-                return;
-            case 'Green':
-                green + change > -1 && green + change < 256 ? setGreen(green + change) : null;
-                return;
-            case 'Blue':
-                blue + change > -1 && blue + change < 256 ? setBlue(blue + change) : null;
-                return;
-            default:
-                return;
-        }
-
-    }
 
     return (
         <View>
             <Text>Square Screen</Text>
             <ColorCounter
                 color="Red"
-                onIncrease={() => { setColor('Red', INCREMENT) }}
-                onDecrease={() => { setColor('Red', -INCREMENT) }}
+                onIncrease={() => dispatch({type:'change_red', payload:INCREMENT})}
+                onDecrease={() => dispatch({type:'change_red', payload:-INCREMENT})}
             />
             <ColorCounter
-                onIncrease={() => { setColor('Blue', INCREMENT) }}
-                onDecrease={() => { setColor('Blue', -INCREMENT) }}
+                onIncrease={() => dispatch({type:'change_green', payload:INCREMENT})}
+                onDecrease={() => dispatch({type:'change_green', payload:-INCREMENT})}
                 color="Green"
             />
             <ColorCounter
-                onIncrease={() => { setColor('Green', INCREMENT) }}
-                onDecrease={() => { setColor('Green', -INCREMENT) }}
+                onIncrease={() => dispatch({type:'change_blue', payload:INCREMENT})}
+                onDecrease={() => dispatch({type:'change_blue', payload:-INCREMENT})}
                 color="Blue"
             />
-            <View style={{ height: 100, width: 100, backgroundColor: rgb }} />
+            <View 
+                style={{ 
+                    height: 100, 
+                    width: 100, 
+                    backgroundColor: rgb 
+                }} 
+            />
         </View>
     )
 };
