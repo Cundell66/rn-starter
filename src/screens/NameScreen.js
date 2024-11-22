@@ -6,7 +6,7 @@ const NameScreen = () => {
 
     return (
         <View>
-            <Text>Name Screen</Text>
+            <Text style={styles.text}>Enter Name:</Text>
             <TextInput 
                 style={styles.input} 
                 autoCapitalize="none"
@@ -15,6 +15,8 @@ const NameScreen = () => {
                 onChangeText={(newValue)=> setName(newValue)}
             />
             {/* <Button title="Button" /> */}
+            {name ? <Text style={styles.text}>My Name Is {name}</Text> : null}
+
         </View>
     )
 };
@@ -24,6 +26,9 @@ const styles = StyleSheet.create({
         margin: 15,
         borderColor: 'black',
         borderWidth: 1,
+    },
+    text: {
+        margin: 15,
     }
 });
 
